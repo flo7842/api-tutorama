@@ -1,0 +1,7 @@
+host:localhost
+user:root
+password:
+port:3306
+connectionLimit: 50
+multipleStatements: true
+database:bataillenavale
