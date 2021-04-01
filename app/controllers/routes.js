@@ -22,7 +22,7 @@ module.exports = {
     });
     
     app.post('/panier', function(req, res){
-      todo.reqlogin(req.body.email, req.body.password,req, res);
+      todo.createPanier(req.body.idArticle, req.body.date, req.body.idUser,req, res);
     });
 
     app.post('/deconnexion', function(req, res){

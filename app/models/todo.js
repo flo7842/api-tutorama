@@ -124,6 +124,28 @@ function Todo() {
 
     }
   }
+
+  
+
+  this.createPanier = function (article, date, user, req,res){
+    connection.acquire(function (err, con) {
+      con.query("insert into panier (idArticle, date, idUser) values (?,?,?)",[article, date, user],
+        function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+        if (err) {
+          res.send({ status: 1, message: "TODO creation fail" });
+        } else {
+          res.send({ status: 0, message: "TODO create success" });
+          console.log("Post successful");
+        }
+      });
+    });
+  }
+
   this.reqgister = function (reqemail, reqpassword, req, res) {
     let hashpass = "";
     let bon = "";
@@ -253,6 +275,10 @@ function Todo() {
       );
     });
   };
+
+
+
+
   this.delete = function (id, res) {
     connection.acquire(function (err, con) {
       con.query(
