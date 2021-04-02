@@ -253,8 +253,15 @@ function Todo() {
       );
     });
   };
+  dateNow=function(){
+    
+   return  new Date().toISOString().slice(0, 19).replace('T', ' ');
+  }
   this.adduser = function (avatar, age, numerotel, numeroRue, batiment,codePostale, libelle, req,res) {
     connection.acquire(function (err, con) {
+      var d = new Date;
+
+ // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
     jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
@@ -270,9 +277,11 @@ function Todo() {
       }
       //console.log(decoded.code) // bar
     });
+    
     if(!(conection2==true)){
+     
       con.query(
-        "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription) values(?,?,?,?,?,?,?,?,?)",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle,"20211212"],
+        "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription) values(?,?,?,?,?,?,?,?,?)",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle, dateNow()],
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
