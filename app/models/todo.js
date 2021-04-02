@@ -698,7 +698,7 @@ function Todo() {
     if(!(conection2==true)){
      
       con.query(
-        "insert into appartenir (idategorie, idCour) values(?,?)",[idCategorie,idCour],
+        "insert into appartenir (idCategorie, idCour) values(?,?)",[idCategorie,idCour],
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
