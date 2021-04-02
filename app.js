@@ -1,10 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var envoi = require('../batailleNavale/app/models/todo');
+var envoi = require('../api-tutorama/app/models/todo');
 
 var connection = require('./app/config/connection');
 var routes = require('./app/controllers/routes');
-const todo = require('../batailleNavale/app/models/todo');
+const todo = require('../api-tutorama/app/models/todo');
 const cookieParser=require("cookie-parser");
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}));

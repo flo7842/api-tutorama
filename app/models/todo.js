@@ -253,6 +253,262 @@ function Todo() {
       );
     });
   };
+  dateNow=function(){
+    
+   return  new Date().toISOString().slice(0, 19).replace('T', ' ');
+  }
+  this.adduser = function (avatar, age, numerotel, numeroRue, batiment,codePostale, libelle, req,res) {
+    connection.acquire(function (err, con) {
+    
+
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription) values(?,?,?,?,?,?,?,?,?)",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle, dateNow()],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.addcour = function (Auteur, etoile, Conetenu, prix, req,res) {
+    connection.acquire(function (err, con) {
+      
+
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into Cour (Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?)",[Auteur, etoile, Conetenu, prix, dateNow()],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+
+  this.addvideo = function (nom, path, image,req,res) {
+    connection.acquire(function (err, con) {
+     
+
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into video (nom, path, image) values(?,?,?)",[nom, path,image],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.addpanier = function ( idUtilisateur, idArticle, req,res) {
+    connection.acquire(function (err, con) {
+   
+
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into panier (idUtilisateur,idArticle, date ) values(?,?,?)",[idUtilisateur,idArticle,dateNow()],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.addcomposercour = function (  idPanier,idCour, req,res) {
+    connection.acquire(function (err, con) {
+      
+
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into composer (idPanier,idCour ) values(?,?)",[idPanier,idCour],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.suivrecour = function (  idutilisateur,idCour, req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into suivre (utilisateur_idUtilisateur, cour_IdCour) values(?,?)",[idutilisateur,idCour],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
   this.delete = function (id, res) {
     connection.acquire(function (err, con) {
       con.query(
@@ -271,7 +527,9 @@ function Todo() {
             console.log("Delete successful");
           }
         }
+      
       );
+    
     });
   };
   this.deletetout = function (req, res) {
@@ -292,6 +550,170 @@ function Todo() {
           }
         }
       );
+    });
+  };
+  this.addvideocour = function ( idvideo ,idcour, req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into compose (idVideo, idCour) values(?,?)",[idvideo,idcour],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.abonnement= function ( dure,prix, req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into abonnement (dure, prix) values(?,?)",[dure,prix],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.categorie= function ( nom,age, sousCategorie,req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into categorie (nom, age, sousCategorie) values(?,?,?)",[nom, age, sousCategorie],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
+  this.appartenir= function ( idCategorie,idCour,req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into appartenir (idCategorie, idCour) values(?,?)",[idCategorie,idCour],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
     });
   };
 }
