@@ -12,8 +12,12 @@ module.exports = {
       todo.reqgister(req.body.email, req.body.password,req, res);
    
     });
+    // this.addabonnent= function ( dure,prix, req,res) 
     app.post('/suivre/cour', function(req, res){
       todo.suivrecour(req.body.utilisateur, req.body.cour,req, res);
+    });
+    app.post('/suivre/abonnement', function(req, res){
+      todo.abonnement(req.body.dure, req.body.prix,req, res);
     });
     app.post('/video/cour', function(req, res){
       todo.addvideocour(req.body.idvideo, req.body.idcour,req, res);

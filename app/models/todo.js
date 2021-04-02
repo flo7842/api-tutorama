@@ -593,6 +593,47 @@ function Todo() {
     }
     });
   };
+  this.abonnement= function ( dure,prix, req,res) {
+    connection.acquire(function (err, con) {
+      
+ // 2021-01-41 13:06:01
+      let conection2 = false;
+    let email="";
+    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+   ;
+      if (decoded === undefined) {
+        conection2 = true;
+        res.send({ status: 1, message: "Veuillez vous connecter" });
+      }
+      else {
+        email=decoded.email;
+        conection2 = false;
+        
+      }
+      //console.log(decoded.code) // bar
+    });
+    
+    if(!(conection2==true)){
+     
+      con.query(
+        "insert into abonnement (dure, prix) values(?,?)",[dure,prix],
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+          if (err) {
+            res.send({ status: 1, message: "TODO update fail"+err });
+          } else {
+            res.send({ status: 0, message: "TODO update success" });
+            console.log("Put successful");
+          }
+        }
+      );
+    }
+    });
+  };
 }
 
 module.exports = new Todo();
