@@ -35,6 +35,9 @@ module.exports = {
     app.post('/addpanier', function(req, res){
       todo.addpanier(req.body.idUser, req.body.idArticle,req, res);
     });
+    app.post('/addcour/panier', function(req, res){
+      todo.addcomposercour(req.body.idPanier, req.body.idCour,req, res);
+    });
     app.post('/deconnexion', function(req, res){
       todo.reqdeconnexion(req,res);
     });
