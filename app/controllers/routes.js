@@ -26,7 +26,9 @@ module.exports = {
     app.post('/panier', function(req, res){
       todo.reqlogin(req.body.email, req.body.password,req, res);
     });
-
+    app.post('/addcour', function(req, res){
+      todo.addcour(req.body.Auteur, req.body.Etoile, req.body.Conetenu, req.body.prix, req, res);
+    });
     app.post('/deconnexion', function(req, res){
       todo.reqdeconnexion(req,res);
     });
