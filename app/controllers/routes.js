@@ -15,6 +15,9 @@ module.exports = {
     app.post('/suivre/cour', function(req, res){
       todo.suivrecour(req.body.utilisateur, req.body.cour,req, res);
     });
+    app.post('/video/cour', function(req, res){
+      todo.addvideocour(req.body.idvideo, req.body.idcour,req, res);
+    });
     app.post('/login', checkEmailAndPass, function(req, res){
       todo.reqlogin(req.body.email, req.body.password,req, res);
     });
