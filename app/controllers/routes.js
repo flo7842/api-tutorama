@@ -29,6 +29,9 @@ module.exports = {
     app.post('/addcour', function(req, res){
       todo.addcour(req.body.Auteur, req.body.Etoile, req.body.Conetenu, req.body.prix, req, res);
     });
+    app.post('/addvideo', function(req, res){
+      todo.addvideo(req.body.nom, req.body.path,req.body.image,req, res);
+    });
     app.post('/deconnexion', function(req, res){
       todo.reqdeconnexion(req,res);
     });
