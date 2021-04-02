@@ -272,8 +272,7 @@ function Todo() {
     });
     if(!(conection2==true)){
       con.query(
-        "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, codePostale, libelle, dateInscription",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle,new Date().now()],
-        [todo, id],
+        "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription) values(?,?,?,?,?,?,?,?,?)",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle,"20211212"],
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
@@ -281,7 +280,7 @@ function Todo() {
           res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
 
           if (err) {
-            res.send({ status: 1, message: "TODO update fail" });
+            res.send({ status: 1, message: "TODO update fail"+err });
           } else {
             res.send({ status: 0, message: "TODO update success" });
             console.log("Put successful");
