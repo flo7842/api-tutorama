@@ -16,7 +16,9 @@ module.exports = {
     app.post('/login', checkEmailAndPass, function(req, res){
       todo.reqlogin(req.body.email, req.body.password,req, res);
     });
-
+    app.post('/adduser', function(req, res){
+      todo.adduser(req.body.avatar, req.body.age, req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.codePostale, req.body.libelle,req, res);
+    });
     app.get('/panier', function(req, res){
       todo.reqlogin(req.body.email, req.body.password,req, res);
     });
