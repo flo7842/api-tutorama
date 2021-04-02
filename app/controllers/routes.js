@@ -32,6 +32,9 @@ module.exports = {
     app.post('/addvideo', function(req, res){
       todo.addvideo(req.body.nom, req.body.path,req.body.image,req, res);
     });
+    app.post('/addpanier', function(req, res){
+      todo.addpanier(req.body.idUser, req.body.idArticle,req, res);
+    });
     app.post('/deconnexion', function(req, res){
       todo.reqdeconnexion(req,res);
     });
