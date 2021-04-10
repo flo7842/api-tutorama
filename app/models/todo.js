@@ -124,7 +124,7 @@ function Todo() {
 
     }
   }
-  this.reqgister = function (reqemail, reqpassword, req, res) {
+  this.reqgister = function (reqemail,avatar,age, numeroTel, numeroRue, batiment, code_Postale,libelle, idabonnement, reqpassword, req, res) {
     let hashpass = "";
     let bon = "";
     connection.acquire(function (err, con) {
@@ -147,7 +147,7 @@ function Todo() {
         
         
         con.query(
-          "insert into user (email, password2) values (?,?)", [reqemail, hashpass]
+          "insert into utilisateur (email,avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle,dateInscription, idabonnement, password2) values (?,?,?,?,?,?,?,?,?,?,?)", [reqemail,avatar,age,numeroTel, numeroRue, batiment,code_Postale,libelle,dateNow(),idabonnement, hashpass]
           ,
 
           function (err, result) {

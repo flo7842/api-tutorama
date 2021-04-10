@@ -9,7 +9,7 @@ module.exports = {
 
   
     app.post('/register', checkEmailAndPass, (req, res) =>{
-      todo.reqgister(req.body.email, req.body.password,req, res);
+      todo.reqgister(req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle, req.body.idabonnement,req.body.password,req, res);
    
     });
     // this.addabonnent= function ( dure,prix, req,res) 
