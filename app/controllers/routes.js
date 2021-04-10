@@ -9,7 +9,7 @@ module.exports = {
 
   
     app.post('/register', checkEmailAndPass, (req, res) =>{
-      todo.reqgister(req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle, req.body.idabonnement,req.body.password,req, res);
+      todo.reqgister(req.body.nom, req.body.prenom,req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle, req.body.idabonnement,req.body.password,req, res);
    
     });
     // this.addabonnent= function ( dure,prix, req,res) 
@@ -60,6 +60,18 @@ module.exports = {
     });
     app.get('/paniertout', function(req, res){
       todo.getpaniertout( res)
+    });
+    app.get('/usertout', function(req, res){
+      todo.getusertout( res)
+    });
+    app.get('/user/:email', function(req, res){
+      todo.getcourparmail( req.params.email, res)
+    });
+    app.get('/courtout', function(req, res){
+      todo.getcourtout( res)
+    });
+    app.get('/cour/:email', function(req, res){
+      todo.getcourparmail( req.params.email,res)
     });
    
     app.post('/envoi', function(req,res){

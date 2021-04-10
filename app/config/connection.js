@@ -12,7 +12,7 @@ function Connection() {
         password:"",
         connectionLimit:10,
         multipleStatements:true,
-        database:"tutorama"
+        database:"bataillenavale"
          //mysql connection pool length
       //  database: "todo"
         

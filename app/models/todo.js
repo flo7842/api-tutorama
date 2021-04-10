@@ -124,7 +124,7 @@ function Todo() {
 
     }
   }
-  this.reqgister = function (reqemail,avatar,age, numeroTel, numeroRue, batiment, code_Postale,libelle, idabonnement, reqpassword, req, res) {
+  this.reqgister = function (nom, prenom, reqemail,avatar,age, numeroTel, numeroRue, batiment, code_Postale,libelle, idabonnement, reqpassword, req, res) {
     let hashpass = "";
     let bon = "";
     connection.acquire(function (err, con) {
@@ -147,7 +147,7 @@ function Todo() {
         
         
         con.query(
-          "insert into utilisateur (email,avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle,dateInscription, idabonnement, password2) values (?,?,?,?,?,?,?,?,?,?,?)", [reqemail,avatar,age,numeroTel, numeroRue, batiment,code_Postale,libelle,dateNow(),idabonnement, hashpass]
+          "insert into utilisateur (nom, prenom,email,avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle,dateInscription, idabonnement, password2) values (?,?,?,?,?,?,?,?,?,?,?,?,?)", [nom, prenom, reqemail,avatar,age,numeroTel, numeroRue, batiment,code_Postale,libelle,dateNow(),idabonnement, hashpass]
           ,
 
           function (err, result) {
@@ -227,6 +227,102 @@ function Todo() {
     connection.acquire(function (err, con) {
 
       con.query("SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur ",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.getusertout = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT *FROM utilisateur ",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.getuserparmail = function (email,res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT *FROM utilisateur where email=?",email,function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.getcourtout = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM suivre INNER join utilisateur ON utilisateur.idUtilisateur = suivre.utilisateur_idUtilisateur inner join cour on cour.idCour =suivre.cour_IdCour",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.getcourparmail = function (email,res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM suivre INNER join utilisateur ON utilisateur.idUtilisateur = suivre.utilisateur_idUtilisateur inner join cour on cour.idCour =suivre.cour_IdCour where email=?", email,function (err, result) {
         con.release();
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -372,7 +468,7 @@ function Todo() {
     if(!(conection2==true)){
      
       con.query(
-        "insert into Cour (Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?)",[Auteur, etoile, Conetenu, prix, dateNow()],
+        "insert into cour (Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?)",[Auteur, etoile, Conetenu, prix, dateNow()],
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
