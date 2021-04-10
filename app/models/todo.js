@@ -52,7 +52,7 @@ function Todo() {
         console.log("Connecté à la base de données MySQL!");
 
         con.query(
-          'select password2 from user where email=?',
+          'select password2 from utilisateur where email=?',
           reqemail,
           function (err, result) {
             con.release();
@@ -197,7 +197,56 @@ function Todo() {
       });
     });
   };
-  
+      
+  this.getpanierparuser = function (paremail,res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur where utilisateur.email=? ",paremail ,function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+
+  this.getpaniertout = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur ",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
   this.getByID = function (id, res) {
     connection.acquire(function (err, con) {
       con.query(

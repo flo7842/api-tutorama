@@ -55,7 +55,13 @@ module.exports = {
     app.get('/email', function(req, res){
       todo.getemail(res)
     });
-    
+    app.get('/panier/:email', function(req, res){
+      todo.getpanierparuser(req.params.email, res)
+    });
+    app.get('/paniertout', function(req, res){
+      todo.getpaniertout( res)
+    });
+   
     app.post('/envoi', function(req,res){
       todo.envoi(req.body.message,res);
     });
