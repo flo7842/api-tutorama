@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
-
+const nodemailer = require("nodemailer");
 app.use(express.json())
 
 const users = []
@@ -21,7 +21,35 @@ app.post('/users', async (req, res) => {
     res.status(500).send()
   }
 })
+var mailOptions = {
+  from: 'mail.krissdeveloppeur.com',
+  to: 'kriss.clotilde@gmail.com',
+  subject: 'test',
+  text: 'test'
+};
+let transporter = nodemailer.createTransport({
 
+  host: "mail.krissdeveloppeur.com",
+  secure: false,
+  auth: {
+    user: "envoi@krissdeveloppeur.com",
+    pass: "envoienvoi!",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+  
+    
+  
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+}); 
+  
 app.post('/users/login', async (req, res) => {
   const user = users.find(user => user.name === req.body.name)
   if (user == null) {

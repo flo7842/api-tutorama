@@ -11,19 +11,10 @@ app.use(express.static('public'))
 app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
-let transport = nodemailer.createTransport({
-  host: "mail.krissdeveloppeur.com",
-  secure: false,
-  auth: {
-    user: "envoi@krissdeveloppeur.com",
-    pass: "envoienvoi!",
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+
 
 function Todo() {
+
   this.reqdeconnexion = function ( req, res) {
 
     res.clearCookie("essai");
@@ -173,6 +164,85 @@ function Todo() {
         );
         }
       });
+    
+    });
+  
+  }
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'clotikriss@gmail.com',
+      pass: 'Tutorama1'
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+ 
+  
+  this.motdepasseoublie = function (email, req, res) {
+
+
+
+
+
+
+    let hashpass = "";
+    let bon = "";
+    var code='$2a$10$GJXcX8O7FNFBwmA1VZkfweWZeivSTY2oXru3PH/ujN/5IoU8eijxe';
+    connection.acquire(function (err, con) {
+      console.log(err);
+      console.log("Connecté à la base de données MySQL!");
+      req.cookies.title = 'GeeksforGeeks';
+      console.log(req.cookies);
+
+      
+        
+
+        
+        
+        con.query(
+          "update utilisateur set password2=? where email=? ", [code, email]
+          ,
+
+          function (err, result) {
+
+
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+            if (err) {
+              console.log("error dans todo");
+                            res.send({ status: 1, message: "Erreur de conection ou login existe" + err });
+              con.release();
+            } else {
+              console.log("IIIIIIIIIIIIIIIIIIIIIII");
+               
+  var mailOptions = {
+    from: 'clotikriss@gmail.com',
+    to: email,
+    subject: 'Un mail de changement de mot de passe vous a été envoyé pour tutorama',
+    text: 'Votre mot de passe provisoire est :12345'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  }); 
+              res.send({ status: 0, message: "Votre mot de passe a été modifié, taper:12345  " });
+              console.log("Post successful");
+              con.release();
+            
+            }
+          
+          }
+        );
+        
+    
     
     });
   

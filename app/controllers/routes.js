@@ -12,6 +12,10 @@ module.exports = {
       todo.reqgister(req.body.nom, req.body.prenom,req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle, req.body.idabonnement,req.body.password,req, res);
    
     });
+    app.post('/perdu', (req, res) =>{
+      todo.motdepasseoublie(req.body.email,req, res);
+   
+    });
     // this.addabonnent= function ( dure,prix, req,res) 
     app.post('/abonnement', function(req, res){
       todo.suivrecour(req.body.utilisateur, req.body.cour,req, res);
