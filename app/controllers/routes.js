@@ -77,6 +77,9 @@ module.exports = {
     app.get('/cour/:email', function(req, res){
       todo.getcourparmail( req.params.email,res)
     });
+    app.get('/promo', function(req, res){
+      todo.getpromo(res)
+    });
    
     app.post('/envoi', function(req,res){
       todo.envoi(req.body.message,res);

@@ -172,7 +172,7 @@ function Todo() {
     service: 'gmail',
     auth: {
       user: 'clotikriss@gmail.com',
-      pass: 'Tutorama1'
+      pass: 'Tutorama2'
     },
     tls: {
       rejectUnauthorized: false,
@@ -364,11 +364,35 @@ function Todo() {
        
       });
     });
-  };
+  }; 
   this.getcourtout = function (res) {
     connection.acquire(function (err, con) {
 
       con.query("SELECT * FROM suivre INNER join utilisateur ON utilisateur.idUtilisateur = suivre.utilisateur_idUtilisateur inner join cour on cour.idCour =suivre.cour_IdCour",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.getpromo = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM cour ORDER BY date DESC limit 6",function (err, result) {
         con.release();
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
