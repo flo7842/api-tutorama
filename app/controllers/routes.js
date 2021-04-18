@@ -35,7 +35,7 @@ module.exports = {
   
     //categorie
     app.post('/addcour', function(req, res){
-      todo.addcour(req.body.Auteur, req.body.Etoile, req.body.Conetenu, req.body.prix, req, res);
+      todo.addcour(req.body.image,req.body.Auteur, req.body.Etoile, req.body.Contenu, req.body.prix, req, res);
     });
     app.post('/addcategorie', function(req, res){
       todo.categorie(req.body.nom, req.body.age, req.body.sousCategorie, req, res);
@@ -90,6 +90,9 @@ module.exports = {
     });
     app.get('/todo',function(req,res) {
       todo.get(res);
+    });
+    app.get('/cours', function(req, res){
+      todo.getcours(res)
     });
     app.get('/todo/:id',function(req,res) {
       todo.getByID(req.params.id,res);

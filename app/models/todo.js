@@ -538,7 +538,32 @@ function Todo() {
     }
     });
   };
-  this.addcour = function (Auteur, etoile, Conetenu, prix, req,res) {
+  
+  this.getcours = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT * FROM cour ORDER BY date DESC",function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
+  this.addcour = function (image,Auteur, etoile, Contenu, prix, req,res) {
     connection.acquire(function (err, con) {
       
 
@@ -562,7 +587,7 @@ function Todo() {
     if(!(conection2==true)){
      
       con.query(
-        "insert into cour (Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?)",[Auteur, etoile, Conetenu, prix, dateNow()],
+        "insert into cour (image,Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?,?)",[image,Auteur, etoile, Contenu, prix, dateNow()],
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
