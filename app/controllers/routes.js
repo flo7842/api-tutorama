@@ -37,6 +37,9 @@ module.exports = {
     app.post('/addcour', function(req, res){
       todo.addcour(req.body.image,req.body.Auteur, req.body.Etoile, req.body.Contenu, req.body.prix, req, res);
     });
+    app.post('/updateadmin', function(req, res){
+      todo.updateadmin(req.body.email,req.body.statut, req, res);
+    });
     app.post('/addcategorie', function(req, res){
       todo.categorie(req.body.nom, req.body.age, req.body.sousCategorie, req, res);
     });
