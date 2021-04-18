@@ -91,6 +91,9 @@ module.exports = {
     app.get('/todo/:id',function(req,res) {
       todo.getByID(req.params.id,res);
     });
+    app.get('/promotion',function(req,res) {
+      todo.getcourpromotion(res);
+    });
     app.post('/delete/:id',function(req,res) {
       todo.delete(req.params.id,res);
     });

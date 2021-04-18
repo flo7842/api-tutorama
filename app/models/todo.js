@@ -1,5 +1,5 @@
 var connection = require("../config/connection");
-
+var ls = require('local-storage');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const bcrypt = require('bcryptjs');
@@ -17,14 +17,15 @@ function Todo() {
 
   this.reqdeconnexion = function ( req, res) {
 
-    res.clearCookie("essai");
+//    res.clearCookie("essai");
+    ls.remove('token');
     res.send({ status: 200, message: "deconnexion"});
    
   }
   this.reqlogin = function (reqemail, reqpassword, req, res) {
     let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -96,6 +97,8 @@ function Todo() {
                     httpOnly: true
                   }
                   res.cookie('essai', jwttoken, cookieOption);
+                   
+                  ls.set('token', jwttoken);
                   console.log(req.body) 
                   const message = "L'Utilisateur" + req.body.email + " c'est bien connecté !" + jwttoken;
                   return res.status(200).json(message)
@@ -254,6 +257,23 @@ function Todo() {
     connection.acquire(function (err, con) {
 
       con.query("select distinct(email) from plateau", function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+
+        res.send(result);
+        console.log("Get successful");
+      });
+    });
+  };
+  this.getcourpromotion = function (res) {
+    connection.acquire(function (err, con) {
+
+      con.query("select * from cour order by date desc limit 6", function (err, result) {
         con.release();
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -479,7 +499,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -521,7 +541,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -564,7 +584,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -606,7 +626,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -648,7 +668,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -689,7 +709,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -773,7 +793,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -814,7 +834,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -855,7 +875,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
@@ -896,7 +916,7 @@ function Todo() {
  // 2021-01-41 13:06:01
       let conection2 = false;
     let email="";
-    jwt.verify(req.cookies['essai'], 'secret_this_should_be_longer', function (err, decoded) {
+    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
    ;
       if (decoded === undefined) {
         conection2 = true;
