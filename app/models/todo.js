@@ -23,22 +23,10 @@ function Todo() {
    
   }
   this.reqlogin = function (reqemail, reqpassword, req, res) {
-    let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
+    
       //console.log(decoded.code) // bar
-    });
-    if (conection2 == true) {
+
+    if ( true) {
       connection.acquire(function (err, con) {
         console.log(err);
         console.log("Connecté à la base de données MySQL!");
@@ -82,9 +70,6 @@ function Todo() {
                   
                 }
                 else {
-
-
-
                   const jwttoken = jwt.sign(
                     {  email:reqemail },
                     "secret_this_should_be_longer",
@@ -96,11 +81,12 @@ function Todo() {
                     ),
                     httpOnly: true
                   }
-                  res.cookie('essai', jwttoken, cookieOption);
-                   
-                  ls.set('token', jwttoken);
+
+
+
+                 
                   console.log(req.body) 
-                  const message = "L'Utilisateur" + req.body.email + " c'est bien connecté !" + jwttoken;
+                  const message = "L'Utilisateur" + reqemail + " c'est bien connecté !" + jwttoken;
                   return res.status(200).json(message)
                   
                 }
@@ -114,7 +100,7 @@ function Todo() {
 
     } else {
       // res.clearCookie("essai");
-      res.send({ status: 1, message: "Connecté "+email });
+      res.send({ status: 1, message: "Connecté "+reqemail });
 
     }
   }
@@ -516,28 +502,16 @@ function Todo() {
     
    return  new Date().toISOString().slice(0, 19).replace('T', ' ');
   }
-  this.adduser = function (avatar, age, numerotel, numeroRue, batiment,codePostale, libelle, req,res) {
+  this.adduser = function (email, avatar, age, numerotel, numeroRue, batiment,codePostale, libelle, req,res) {
     connection.acquire(function (err, con) {
     
 
  // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+      
     
-    if(!(conection2==true)){
+    
+    
+    if(true){
      
       con.query(
         "insert into utilisateur(email, avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription) values(?,?,?,?,?,?,?,?,?)",[email,avatar,age,numerotel, numeroRue,batiment,codePostale,libelle, dateNow()],
@@ -588,23 +562,9 @@ function Todo() {
       
 
  // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
     
-    if(!(conection2==true)){
+    
+    if(true){
      
       con.query(
         "insert into cour (image,Auteur, Etoile, Conetenu, prix,date) values(?,?,?,?,?,?)",[image,Auteur, etoile, Contenu, prix, dateNow()],
@@ -631,25 +591,11 @@ function Todo() {
      
 
  // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
     
-    if(!(conection2==true)){
+    
+    if(true){
      
-      con.query(
+!      con.query(
         "insert into video (nom, path, image) values(?,?,?)",[nom, path,image],
         function (err, result) {
           con.release();
@@ -672,24 +618,9 @@ function Todo() {
     connection.acquire(function (err, con) {
    
 
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+ 
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into panier (idUtilisateur,idArticle, date ) values(?,?,?)",[idUtilisateur,idArticle,dateNow()],
@@ -714,24 +645,9 @@ function Todo() {
     connection.acquire(function (err, con) {
       
 
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into composer (idPanier,idCour ) values(?,?)",[idPanier,idCour],
@@ -755,24 +671,8 @@ function Todo() {
   this.suivrecour = function (  idutilisateur,idCour, req,res) {
     connection.acquire(function (err, con) {
       
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
-    
-    if(!(conection2==true)){
+
+    if(true){
      
       con.query(
         "insert into suivre (utilisateur_idUtilisateur, cour_IdCour) values(?,?)",[idutilisateur,idCour],
@@ -839,24 +739,9 @@ function Todo() {
   this.addvideocour = function ( idvideo ,idcour, req,res) {
     connection.acquire(function (err, con) {
       
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+ 
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into compose (idVideo, idCour) values(?,?)",[idvideo,idcour],
@@ -880,24 +765,9 @@ function Todo() {
   this.abonnement= function ( dure,prix, req,res) {
     connection.acquire(function (err, con) {
       
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+ 
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into abonnement (dure, prix) values(?,?)",[dure,prix],
@@ -922,23 +792,9 @@ function Todo() {
     connection.acquire(function (err, con) {
       
  // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+      
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into categorie (nom, age, sousCategorie) values(?,?,?)",[nom, age, sousCategorie],
@@ -962,24 +818,9 @@ function Todo() {
   this.appartenir= function ( idCategorie,idCour,req,res) {
     connection.acquire(function (err, con) {
       
- // 2021-01-41 13:06:01
-      let conection2 = false;
-    let email="";
-    jwt.verify(ls.get("token"), 'secret_this_should_be_longer', function (err, decoded) {
-   ;
-      if (decoded === undefined) {
-        conection2 = true;
-        res.send({ status: 1, message: "Veuillez vous connecter" });
-      }
-      else {
-        email=decoded.email;
-        conection2 = false;
-        
-      }
-      //console.log(decoded.code) // bar
-    });
+
     
-    if(!(conection2==true)){
+    if(true){
      
       con.query(
         "insert into appartenir (idCategorie, idCour) values(?,?)",[idCategorie,idCour],
