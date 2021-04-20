@@ -347,6 +347,30 @@ function Todo() {
       });
     });
   };
+  this.getuserparemail = function (email, res) {
+    connection.acquire(function (err, con) {
+
+      con.query("SELECT *FROM utilisateur where email=?", email, function (err, result) {
+        con.release();
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+
+
+
+        if(err){
+          res.send(err);
+        console.log("Get successful");
+        }
+        else{
+          res.send(result); 
+          console.log("Get successful");
+        }
+        
+       
+      });
+    });
+  };
   this.getuserparmail = function (email,res) {
     connection.acquire(function (err, con) {
 

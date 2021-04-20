@@ -71,6 +71,9 @@ module.exports = {
     app.get('/usertout', function(req, res){
       todo.getusertout( res)
     });
+    app.get('/utilisateur/:email', function(req, res){
+      todo.getuserparemail( req.params.email, res)
+    });
     app.get('/user/:email', function(req, res){
       todo.getcourparmail( req.params.email, res)
     });
