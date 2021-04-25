@@ -29,13 +29,16 @@ module.exports = {
     app.post('/login', checkEmailAndPass, function(req, res){
       todo.reqlogin(req.body.email, req.body.password,req, res);
     });
+    app.post('/changepass', checkEmailAndPass, function(req, res){
+      todo.reqpassword(req.body.email, req.body.password,req.body.nouveau,req, res);
+    });
     app.post('/adduser', function(req, res){
       todo.adduser(req.body.email,req.body.avatar, req.body.age, req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.codePostale, req.body.libelle,req, res);
     });
   
     //categorie
     app.post('/addcour', function(req, res){
-      todo.addcour(req.body.image,req.body.Auteur, req.body.Etoile, req.body.Contenu, req.body.prix, req, res);
+      todo.addcour(req.body.image,req.body.Auteur, req.body.Etoile, req.body.Contenu, req.body.prix,req.body.video, req, res);
     });
     app.post('/updateadmin', function(req, res){
       todo.updateadmin(req.body.email,req.body.statut, req, res);
@@ -105,6 +108,9 @@ module.exports = {
     });
     app.get('/promotion',function(req,res) {
       todo.getcourpromotion(res);
+    });
+    app.get('/mieunote',function(req,res) {
+      todo.getcourmieuxnote(res);
     });
     app.post('/delete/:id',function(req,res) {
       todo.delete(req.params.id,res);
