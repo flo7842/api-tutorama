@@ -386,7 +386,7 @@ function Todo() {
   this.getpanierparuser = function (paremail, res) {
     connection.acquire(function (err, con) {
       con.query(
-        "SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur where utilisateur.email=? ",
+        "SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur INNER JOIN cour on cour.idCour=panier.idCour where utilisateur.email=? ",
         paremail,
         function (err, result) {
           con.release();
@@ -852,7 +852,7 @@ function Todo() {
     connection.acquire(function (err, con) {
       if (true) {
         con.query(
-          "insert into panier (idUtilisateur,idArticle, date ) values(?,?,?)",
+          "insert into panier (idUtilisateur,idCour, date ) values(?,?,?)",
           [idUtilisateur, idArticle, dateNow()],
           function (err, result) {
             con.release();

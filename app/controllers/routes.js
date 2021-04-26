@@ -53,7 +53,7 @@ module.exports = {
       todo.addvideo(req.body.nom, req.body.path,req.body.image,req, res);
     });
     app.post('/addpanier', function(req, res){
-      todo.addpanier(req.body.idUser, req.body.idArticle,req, res);
+      todo.addpanier(req.body.idUser, req.body.idCour,req, res);
     });
     app.post('/addcour/panier', function(req, res){
       todo.addcomposercour(req.body.idPanier, req.body.idCour,req, res);
