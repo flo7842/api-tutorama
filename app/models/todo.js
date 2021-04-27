@@ -27,7 +27,7 @@ function Todo() {
         console.log("Connecté à la base de données MySQL!");
 
         con.query(
-          "select password2 from utilisateur where email=?",
+          "select idUtilisateur,password2 from utilisateur where email=?",
           reqemail,
           function (err, result) {
             con.release();
@@ -70,19 +70,16 @@ function Todo() {
                       const jwttoken = jwt.sign(
                         { email: reqemail },
                         "secret_this_should_be_longer",
-                        { expiresIn: "1h" }
+                        { expiresIn: "24d" }
                       );
                       const cookieOption = {
-                        expiresIn: new Date(Date.now() + 24 * 3600),
+                        expiresIn: new Date(Date.now() + 24*24* 3600),
                         httpOnly: true,
                       };
 
                       console.log(req.body);
                       const message =
-                        "L'Utilisateur" +
-                        reqemail +
-                        " c'est bien connecté !" +
-                        jwttoken;
+                        "L'Utilisateur " + result[0].idUtilisateur+" "+reqemail +" c'est bien connecté !" + jwttoken;
                       return res.status(200).json(message);
                     }
                   }
@@ -162,6 +159,7 @@ function Todo() {
                               }
                             }
                           );
+                          con.release()
                         }
                       });
                     }
@@ -848,12 +846,12 @@ function Todo() {
       }
     });
   };
-  this.addpanier = function (idUtilisateur, idArticle, req, res) {
+  this.addpanier = function (idUtilisateur,idCour, req, res) {
     connection.acquire(function (err, con) {
       if (true) {
         con.query(
           "insert into panier (idUtilisateur,idCour, date ) values(?,?,?)",
-          [idUtilisateur, idArticle, dateNow()],
+          [idUtilisateur, idCour, dateNow()],
           function (err, result) {
             con.release();
             res.header("Access-Control-Allow-Origin", "*");
