@@ -73,13 +73,18 @@ function Todo() {
                         { expiresIn: "24d" }
                       );
                       const cookieOption = {
-                        expiresIn: new Date(Date.now() + 24*24* 3600),
+                        expiresIn: new Date(Date.now() + 24 * 24 * 3600),
                         httpOnly: true,
                       };
 
                       console.log(req.body);
                       const message =
-                        "L'Utilisateur " + result[0].idUtilisateur+" "+reqemail +" c'est bien connecté !" + jwttoken;
+                        "L'Utilisateur " +
+                        result[0].idUtilisateur +
+                        " " +
+                        reqemail +
+                        " c'est bien connecté !" +
+                        jwttoken;
                       return res.status(200).json(message);
                     }
                   }
@@ -89,9 +94,9 @@ function Todo() {
           }
         );
       });
-    } 
+    }
   };
-  this.reqpassword = function (reqemail, reqpassword,reqnouveau, req, res) {
+  this.reqpassword = function (reqemail, reqpassword, reqnouveau, req, res) {
     //console.log(decoded.code) // bar
 
     if (true) {
@@ -153,13 +158,19 @@ function Todo() {
                             [hashpass, reqemail],
                             function (err, result) {
                               if (err) {
-                                res.send({ status: 0, message: "Erreur" + err });
+                                res.send({
+                                  status: 0,
+                                  message: "Erreur" + err,
+                                });
                               } else {
-                                res.send({ status: 1, message: "ok mot de passe changé"+result2 });
+                                res.send({
+                                  status: 1,
+                                  message: "ok mot de passe changé" + result2,
+                                });
                               }
                             }
                           );
-                          con.release()
+                          con.release();
                         }
                       });
                     }
@@ -184,7 +195,6 @@ function Todo() {
     batiment,
     code_Postale,
     libelle,
-    idabonnement,
     reqpassword,
     req,
     res
@@ -206,7 +216,7 @@ function Todo() {
           hashpass = hash;
 
           con.query(
-            "insert into utilisateur (nom, prenom,email,avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle,dateInscription, idabonnement, password2) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "insert into utilisateur (nom, prenom,email,avatar, age, numeroTel, numeroRue, batiment, code_Postale, libelle, dateInscription, password2) values (?,?,?,?,?,?,?,?,?,?,?,?)",
             [
               nom,
               prenom,
@@ -219,7 +229,7 @@ function Todo() {
               code_Postale,
               libelle,
               dateNow(),
-              idabonnement,
+            
               hashpass,
             ],
             function (err, result) {
@@ -409,11 +419,92 @@ function Todo() {
       );
     });
   };
-
-  this.getpaniertout = function (res) {
+  this.getcategorieMieuxNote= function (res) {
     connection.acquire(function (err, con) {
       con.query(
-        "SELECT * FROM panier INNER JOIN utilisateur ON panier.idUtilisateur=utilisateur.idUtilisateur ",
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour where Etoile>3",
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send(err);
+            console.log("Get successful");
+          } else {
+            res.send(result);
+            console.log("Get successful");
+          }
+        }
+      );
+    });
+  };
+
+  this.getcategorieTout = function (res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour ",
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send(err);
+            console.log("Get successful");
+          } else {
+            res.send(result);
+            console.log("Get successful");
+          }
+        }
+      );
+    });
+  };
+  this.getcategoriePromo = function (res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour date DESC limit 6 ",
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send(err);
+            console.log("Get successful");
+          } else {
+            res.send(result);
+            console.log("Get successful");
+          }
+        }
+      );
+    });
+  };
+  this.getcategorieNom = function (Nom,res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour where Nom=? ",Nom,
         function (err, result) {
           con.release();
           res.header("Access-Control-Allow-Origin", "*");
@@ -562,10 +653,38 @@ function Todo() {
       );
     });
   };
-  this.getcourparmail = function (email, res) {
+  this.getcategorieEmail = function (email, res) {
     connection.acquire(function (err, con) {
       con.query(
-        "SELECT * FROM suivre INNER join utilisateur ON utilisateur.idUtilisateur = suivre.utilisateur_idUtilisateur inner join cour on cour.idCour =suivre.cour_IdCour where email=?",
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour INNER JOIN panier on panier.idCour=cour.IdCour INNER join utilisateur on panier.idUtilisateur=utilisateur.idUtilisateur where email=?",
+        email,
+        function (err, result) {
+          con.release();
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+          );
+
+          if (err) {
+            res.send(err);
+            console.log("Get successful");
+          } else {
+            res.send(result);
+            console.log("Get successful");
+          }
+        }
+      );
+    });
+  };
+   this.getcategorieEmail = function (email, res) {
+    connection.acquire(function (err, con) {
+      con.query(
+        "SELECT * from categorie inner join appartenir ON appartenir.idCategorie=categorie.idCategorie INNER join cour ON cour.IdCour=appartenir.IdCour INNER JOIN panier on panier.idCour=cour.IdCour INNER join utilisateur on panier.idUtilisateur=utilisateur.idUtilisateur where email=?",
         email,
         function (err, result) {
           con.release();
@@ -846,7 +965,7 @@ function Todo() {
       }
     });
   };
-  this.addpanier = function (idUtilisateur,idCour, req, res) {
+  this.addpanier = function (idUtilisateur, idCour, req, res) {
     connection.acquire(function (err, con) {
       if (true) {
         con.query(
