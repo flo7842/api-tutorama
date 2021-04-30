@@ -9,7 +9,7 @@ module.exports = {
 
   
     app.post('/register', checkEmailAndPass, (req, res) =>{
-      todo.reqgister(req.body.nom, req.body.prenom,req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle, req.body.idabonnement,req.body.password,req, res);
+      todo.reqgister(req.body.nom, req.body.prenom,req.body.email, req.body.avatar, req.body.age,req.body.numeroTel, req.body.numeroRue, req.body.batiment, req.body.code_Postale, req.body.libelle,req.body.password,req, res);
    
     });
     app.post('/perdu', (req, res) =>{
@@ -70,6 +70,21 @@ module.exports = {
     });
     app.get('/paniertout', function(req, res){
       todo.getpaniertout( res)
+    });
+    app.get('/categorieTout', function(req, res){
+      todo.getcategorieTout( res)
+    });
+    app.get('/categoriePromo', function(req, res){
+      todo.getcategoriePromo( res)
+    });
+    app.get('/categorieMieuxNote', function(req, res){
+      todo.getcategorieMieuxNote( res)
+    });
+    app.get('/courCategorie/:Categorie', function(req, res){
+      todo.getcategorieNom( req.params.Categorie,res)
+    });
+    app.get('/categorie/:utilisateur', function(req, res){
+      todo.getcategorieEmail( req.params.utilisateur,res)
     });
     app.get('/usertout', function(req, res){
       todo.getusertout( res)
