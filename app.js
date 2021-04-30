@@ -6,7 +6,10 @@ var connection = require('./app/config/connection');
 var routes = require('./app/controllers/routes');
 const todo = require('../api-tutorama/app/models/todo');
 const cookieParser=require("cookie-parser");
+const cors=require('cors');
+
 var app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());

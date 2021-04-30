@@ -21,10 +21,12 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.14.0",
     "formidable": "^1.2.2",
     "jsonwebtoken": "^8.5.1",
+    "local-storage": "^2.0.0",
     "mysql": "^2.11.1",
     "nodemailer": "^6.5.0"
   }
